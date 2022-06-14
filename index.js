@@ -6,7 +6,7 @@ module.exports = {
 	extends: [
 		'airbnb-base',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:vue/recommended',
+		'plugin:promise/recommended',
 	],
     rules: {
 		'spaced-comment': 0,
@@ -36,8 +36,6 @@ module.exports = {
 		'no-param-reassign': 'off',
 		'no-underscore-dangle': 'off',
 		'class-methods-use-this': 'off',
-		//'no-redeclare': 'off',
-		//'no-unused-vars': 'off',
 		'no-mixed-operators': 'off',
 		'max-classes-per-file': 'off',
 		'prefer-regex-literals': 'off',
@@ -65,12 +63,5 @@ module.exports = {
 		'no-shadow': 'off',
 		'@typescript-eslint/no-shadow': 'error',
     },
-	plugins: [
-		'html',
-		'import',
-		'promise',
-		'@typescript-eslint',
-		'vue',
-	],
 
 };

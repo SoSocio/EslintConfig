@@ -12,5 +12,13 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0"
+  },
+  "publishConfig": {
+	"registry": "https://npm.pkg.github.com/sosocio"
+  },
+  "repository": {
+	"type": "git",
+	"url": "git@github.com:SoSocio/EslintConfig.git",
+	"directory": "@sosocio/eslint-config"
   }
 }
