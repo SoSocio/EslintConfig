@@ -9,20 +9,36 @@ module.exports = {
 		'plugin:promise/recommended',
 	],
     rules: {
-		'spaced-comment': 0,
+		// Reason: Create some consistency if the markup of inline comments
+		'spaced-comment': [
+			'warning',
+			'always'
+		],
+		
+		// Reason: Console log messages can be very helpful in debugging and monitoring
 		'no-console': 0,
-		'max-len': ['off', {
-			code: 100,
-			ignoreComments: true,
-		}],
+		
+		// Reason: We use TABS for indentation
 		'no-tabs': 'off',
-		indent: ['error', 'tab', { SwitchCase: 1 }],
-		'vue/html-indent': ['error', 'tab'],
-		eqeqeq: 'off',
-		'no-prototype-builtins': 'off',
-		'import/no-dynamic-require': 'off',
+		indent: [
+			'error',
+			'tab',
+			{ SwitchCase: 1 }
+		],
+		'vue/html-indent': [
+			'error',
+			'tab'
+		],
+		'@typescript-eslint/indent': [
+			'error',
+			'tab',
+			{ SwitchCase: 1 }
+		],
+		
+		// Reason: In complex applications you sometimes have cycle references. This is something that may be looked into in the future, but right now is not a priority.
 		'import/no-cycle': 'off',
-		'import/no-extraneous-dependencies': 'off',
+		
+		// Reason: Developers don't need to use file extensions when importing files, and we do not control external packages so ignore those
 		'import/extensions': [
 			'error',
 			'ignorePackages',
@@ -33,35 +49,27 @@ module.exports = {
 				tsx: 'never',
 			},
 		],
-		'no-param-reassign': 'off',
+		
+		// Reason: Why shouldn't you be able to have a dangling underscore in your variable name?
 		'no-underscore-dangle': 'off',
-		'class-methods-use-this': 'off',
-		'no-mixed-operators': 'off',
-		'max-classes-per-file': 'off',
-		'prefer-regex-literals': 'off',
-		// Note: the typescript rule needs to overrule the regular one
+		
+		// Reason: Class methods that don't use this can be turned to static methods, but it required code refactoring, so we won't enforce this right now
+		'class-methods-use-this': 'warning',
+
+		// Reason: no-unused-vars must be disabled because we're using @typescript-eslint/no-unused-vars
+		'no-unused-vars': 'off',
 		'@typescript-eslint/no-unused-vars': 'error',
-		'@typescript-eslint/indent': ['error', 'tab', { SwitchCase: 1 }],
-		//'@typescript-eslint/explicit-member-accessibility': 'off',
-		'@typescript-eslint/camelcase': 'off',
-		'@typescript-eslint/explicit-function-return-type': 'off',
-		'@typescript-eslint/no-var-requires': 'off',
-		'@typescript-eslint/no-explicit-any': 'off',
-		'@typescript-eslint/class-name-casing': 'off',
-		'@typescript-eslint/ban-ts-ignore': 'off',
+		
+		// Reason: we allow @ts-ignore to be used
 		'@typescript-eslint/ban-ts-comment': 'off',
-		//'@typescript-eslint/no-this-alias': 'off',
 
-		// TODO: Refactor all components to multi-word
-		'vue/multi-word-component-names': 'off',
-
-		// no-use-before-define must be disabled because we're using @typescript-eslint/no-use-before-define
+		// Reason: no-use-before-define must be disabled because we're using @typescript-eslint/no-use-before-define
 		'no-use-before-define': 'off',
 		'@typescript-eslint/no-use-before-define': 'error',
 
-		// no-shadow must be disabled because we're using @typescript-eslint/no-shadow
+		// Reason: no-shadow must be disabled because we're using @typescript-eslint/no-shadow
 		'no-shadow': 'off',
 		'@typescript-eslint/no-shadow': 'error',
-    },
+	},
 
 };
