@@ -6,6 +6,7 @@ module.exports = {
 	extends: [
 		'airbnb-base',
 		'plugin:@typescript-eslint/recommended',
+		'plugin:promise/recommended',
 	],
     rules: {
 		// Reason: Create some consistency if the markup of inline comments
