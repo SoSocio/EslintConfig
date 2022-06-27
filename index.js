@@ -11,7 +11,7 @@ module.exports = {
     rules: {
 		// Reason: Create some consistency if the markup of inline comments
 		'spaced-comment': [
-			'warning',
+			'warn',
 			'always'
 		],
 		
