@@ -6,7 +6,6 @@ module.exports = {
 	extends: [
 		'airbnb-base',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:promise/recommended',
 	],
     rules: {
 		// Reason: Create some consistency if the markup of inline comments
@@ -54,7 +53,7 @@ module.exports = {
 		'no-underscore-dangle': 'off',
 		
 		// Reason: Class methods that don't use this can be turned to static methods, but it required code refactoring, so we won't enforce this right now
-		'class-methods-use-this': 'warning',
+		'class-methods-use-this': 'warn',
 
 		// Reason: no-unused-vars must be disabled because we're using @typescript-eslint/no-unused-vars
 		'no-unused-vars': 'off',
