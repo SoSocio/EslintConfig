@@ -1,24 +1,30 @@
 {
-  "name": "@sosocio/eslint-config",
-  "version": "1.0.14",
-  "description": "A reusable eslint config",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.0.0"
-  },
-  "publishConfig": {
-	"registry": "https://npm.pkg.github.com/sosocio"
-  },
-  "repository": {
-	"type": "git",
-	"url": "git://github.com/SoSocio/EslintConfig.git",
-	"directory": "@sosocio/eslint-config"
-  }
+	"name": "@sosocio/eslint-config",
+	"version": "1.0.15",
+	"description": "A reusable eslint config",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-prettier": "^4.0.0"
+	},
+	"peerDependencies": {
+		"eslint": ">= 3"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/sosocio"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/SoSocio/EslintConfig.git",
+		"directory": "@sosocio/eslint-config"
+	},
+	"devDependencies": {
+		"eslint": "^8.18.0",
+		"eslint-config-airbnb": "^19.0.4"
+	}
 }
