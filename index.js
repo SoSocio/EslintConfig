@@ -6,7 +6,6 @@ module.exports = {
 	extends: [
 		'airbnb-base',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:vue/recommended',
 		'plugin:promise/recommended',
 	],
     rules: {
@@ -25,10 +24,6 @@ module.exports = {
 			'error',
 			'tab',
 			{ SwitchCase: 1 }
-		],
-		'vue/html-indent': [
-			'error',
-			'tab'
 		],
 		'@typescript-eslint/indent': [
 			'error',
