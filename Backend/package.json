@@ -1,6 +1,6 @@
 {
   "name": "@sosocio/eslint-config-backend",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,6 @@
     "directory": "@sosocio/eslint-config-backend"
   },
   "dependencies": {
-    "@sosocio/eslint-config": "^1.0.18"
+    "@sosocio/eslint-config": "^1.0.19"
   }
 }
