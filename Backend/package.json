@@ -1,0 +1,22 @@
+{
+  "name": "@sosocio/eslint-config-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/sosocio"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SoSocio/EslintConfig.git",
+    "directory": "@sosocio/eslint-config"
+  },
+  "dependencies": {
+    "@sosocio/eslint-config": "^1.0.16"
+  }
+}
