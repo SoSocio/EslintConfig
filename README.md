@@ -8,14 +8,14 @@ In order to add eslint config, you'll need to add the following settings:
 
 
 <h2>For Frontend</h2>
-```
+````
 npm install @sosocio/eslint-config-frontend@1.0.2
-```
+````
 
 <h2>For Backend</h2>
-```
+````
 npm install @sosocio/eslint-config-backend@1.0.1
-```
+````
 
 Then create a **.eslintrc.js**:
 
