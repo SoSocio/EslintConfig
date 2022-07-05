@@ -7,7 +7,7 @@ Reusable **eslint** settings for our projects.
 In order to add eslint config, you'll need to add the following settings:
 
 ```
-npm install @sosocio/eslint-config-frontend@1.0.3
+npm install @sosocio/eslint-config-frontend@1.0.4
 ```
 
 Then create a **.eslintrc.js**:

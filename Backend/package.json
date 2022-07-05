@@ -1,6 +1,6 @@
 {
   "name": "@sosocio/eslint-config-backend",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/SoSocio/EslintConfig.git",
-    "directory": "@sosocio/eslint-config"
+    "directory": "@sosocio/eslint-config-backend"
   },
   "dependencies": {
     "@sosocio/eslint-config": "^1.0.18"
