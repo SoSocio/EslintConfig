@@ -7,12 +7,12 @@ Reusable **eslint** settings for our projects.
 In order to add eslint config, you'll need to add the following settings:
 
 
-<h2>For Frontend</h2>
+For Frontend
 ````
 npm install @sosocio/eslint-config-frontend@1.0.2
 ````
 
-<h2>For Backend</h2>
+For Backend
 ````
 npm install @sosocio/eslint-config-backend@1.0.1
 ````
