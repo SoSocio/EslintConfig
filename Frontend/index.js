@@ -4,8 +4,8 @@ module.exports = {
         MyGlobal: true
     },
 	extends: [
+		'@sosocio/eslint-config',
 		'plugin:vue/recommended',
-		'@sosocio/eslint-config'
 	],
     rules: {	
 		'vue/html-indent': [

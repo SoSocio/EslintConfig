@@ -7,6 +7,7 @@ module.exports = {
 		'airbnb-base',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:promise/recommended',
+		'plugin:json-schema-validator/recommended',
 	],
     rules: {
 		// Reason: Create some consistency if the markup of inline comments
@@ -45,6 +46,7 @@ module.exports = {
 				tsx: 'never',
 			},
 		],
+		'function-call-argument-newline': ['error', 'always'],
 		
 		// Reason: Why shouldn't you be able to have a dangling underscore in your variable name?
 		'no-underscore-dangle': 'off',
