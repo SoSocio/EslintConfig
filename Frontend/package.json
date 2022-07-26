@@ -1,6 +1,6 @@
 {
   "name": "@sosocio/eslint-config-frontend",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "directory": "@sosocio/eslint-config-frontend"
   },
   "dependencies": {
-    "@sosocio/eslint-config": "^1.0.25"
+    "@sosocio/eslint-config": "^1.0.26"
   },
   "devDependencies": {
     "eslint-plugin-json-schema-validator": "^4.0.0",

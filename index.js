@@ -7,7 +7,6 @@ module.exports = {
 		'airbnb-base',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:promise/recommended',
-		'plugin:json-schema-validator/recommended',
 	],
     rules: {
 		// Reason: Create some consistency if the markup of inline comments
