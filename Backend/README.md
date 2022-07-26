@@ -8,7 +8,7 @@ In order to add eslint config, you'll need to add the following settings:
 
 
 ```
-npm install @sosocio/eslint-config-backend@1.0.7
+npm install @sosocio/eslint-config-backend@1.0.8
 ```
 
 Then create a **.eslintrc.js**:

@@ -1,6 +1,6 @@
 {
   "name": "@sosocio/eslint-config-backend",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,10 @@
     "directory": "@sosocio/eslint-config-backend"
   },
   "dependencies": {
-    "@sosocio/eslint-config": "^1.0.24"
+    "@sosocio/eslint-config": "^1.0.25"
+  },
+  "devDependencies": {
+    "eslint-plugin-json-schema-validator": "^4.0.0",
+    "eslint-plugin-jsonc": "^2.3.1"
   }
 }
