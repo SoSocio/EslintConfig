@@ -14,6 +14,7 @@ module.exports = {
 			'error',
 			'tab'
 		],
+		'json-schema-validator/no-invalid': 'error',
 	},
 
 };

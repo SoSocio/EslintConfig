@@ -7,6 +7,8 @@ module.exports = {
         '@sosocio/eslint-config',
 		'plugin:json-schema-validator/recommended',
     ],
-    rules: {},
+    rules: {
+        'json-schema-validator/no-invalid': 'error',
+    },
 
 };
