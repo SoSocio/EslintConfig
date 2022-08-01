@@ -7,6 +7,9 @@ module.exports = {
 		'airbnb-base',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:promise/recommended',
+		'plugin:json-schema-validator/recommended',
+		'plugin:json/recommended',
+
 	],
     rules: {
 		// Reason: Create some consistency if the markup of inline comments
@@ -67,6 +70,12 @@ module.exports = {
 		// Reason: no-shadow must be disabled because we're using @typescript-eslint/no-shadow
 		'no-shadow': 'off',
 		'@typescript-eslint/no-shadow': 'error',
+
+		// Reason: validate object with JSON Schema.
+		'json-schema-validator/no-invalid': 'error',
+
+		// Reason: we allow JSON comments to be used
+		"json/*": ["error", {"allowComments": true}],
 	},
 
 };
