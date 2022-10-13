@@ -1,0 +1,24 @@
+{
+	"name": "eslintconfig",
+	// Sets the run context to one level up instead of the .devcontainer folder.
+	"context": "..",
+	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+	"dockerFile": "../Dockerfile",
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"git.path": "/usr/bin/git"
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"dbaeumer.vscode-eslint"
+	],
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [],
+	"runArgs": [
+		"--name",
+		"eslintconfig",
+		"--network=sosocio"
+	],
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/app,type=bind,consistency=cached",
+	"workspaceFolder": "/home/app"
+}
