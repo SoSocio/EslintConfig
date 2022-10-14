@@ -4,9 +4,9 @@ FROM node:14.19
 WORKDIR /home/app
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
+COPY package*.json ./home/app
 
-COPY .npmrc ./
+COPY .npmrc ./home/app
 
 # install project dependencies
 RUN npm install
