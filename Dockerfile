@@ -75,9 +75,8 @@ FROM build-image AS prod-image
 ARG PROJECT_DIR
 ARG GITHUB_AUTH_TOKEN
 
-RUN groupadd-r root && useradd -r -g root root
 # Set user to "root" for the subsequent commands being run
-USER root
+USER "root"
 # Set the config with the user "root"
 RUN npm config set user "root"
 
@@ -114,7 +113,7 @@ RUN npm install -g node-jq
 
 
 # Set user to "root" for the subsequent commands being run
-USER root
+USER "root"
 
 ##############################################################################
 # Stage 4: Create app image
@@ -131,7 +130,7 @@ COPY ./.npmrc "${PROJECT_DIR}/.npmrc"
 
 
 # Set user to "root" for the subsequent commands being run
-USER root
+USER "root"
 
 # Install Dependencies
 RUN npm install
