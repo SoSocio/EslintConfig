@@ -117,6 +117,8 @@ workflows:
       - build-and-test-publish:
           context:
             - github-packages
+          requires:
+            - setup
   tag:
     jobs:
       - setup:
