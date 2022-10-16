@@ -72,7 +72,7 @@ jobs:
           docker_layer_caching: true
       - run:
           name: Build Docker image
-          command: docker build --build-arg GITHUB_AUTH_TOKEN=$GITHUB_AUTH_TOKEN  -t << pipeline.parameters.imageName >> .
+          command: docker build --target prod-image --build-arg GITHUB_AUTH_TOKEN=$GITHUB_AUTH_TOKEN  -t << pipeline.parameters.imageName >> .
       - run:
           name: Export CI environment variables
           command: env >> ./.ci.env
