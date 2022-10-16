@@ -1,5 +1,9 @@
 version: 2.1
 
+parameters:
+  imageName:
+    type: string
+    default: eslint-config
 executors:
   node-executor:
     docker:
@@ -30,8 +34,8 @@ commands:
             name: Export CI environment variables
             command: env >> ./.ci.env
         - run:
-            name: Build and Publish Package
-            command: |
+            name: Build and Publish Package 
+            command: |             
               docker run --env-file ./.ci.env \
               --name << pipeline.parameters.imageName >> \
               -it << pipeline.parameters.imageName >> \

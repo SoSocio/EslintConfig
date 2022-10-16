@@ -1,7 +1,10 @@
 {
-	"name": "eslintconfig",
+	"name": "eslint-config",
 	// Sets the run context to one level up instead of the .devcontainer folder.
 	"context": "..",
+	"build": {
+		 "target": "dev-image"
+	},
 	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
 	"dockerFile": "../Dockerfile",
 	// Set *default* container specific settings.json values on container create.
@@ -16,7 +19,7 @@
 	"forwardPorts": [],
 	"runArgs": [
 		"--name",
-		"eslintconfig",
+		"eslint-config",
 		"--network=sosocio"
 	],
 	"workspaceMount": "source=${localWorkspaceFolder},target=/home/app,type=bind,consistency=cached",
