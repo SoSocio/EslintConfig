@@ -129,8 +129,6 @@ workflows:
               only: /^v.*/
       - request-publish-package:
           type: approval
-          requires:
-            - check-code
           filters:
             tags:
               only: /^v.*/
