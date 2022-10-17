@@ -1,0 +1,26 @@
+{
+  "name": "@sosocio/eslint-config-backend",
+  "version": "1.0.12",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/sosocio"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SoSocio/EslintConfig.git",
+    "directory": "@sosocio/eslint-config-backend"
+  },
+  "dependencies": {
+    "@sosocio/eslint-config": "^1.0.27"
+  },
+  "devDependencies": {
+    "eslint-plugin-json-schema-validator": "^4.0.0",
+    "eslint-plugin-jsonc": "^2.3.1"
+  }
+}

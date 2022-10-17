@@ -6,16 +6,9 @@ Reusable **eslint** settings for our projects.
 
 In order to add eslint config, you'll need to add the following settings:
 
-
-For Frontend
-````
+```
 npm install @sosocio/eslint-config-frontend@1.0.18
-````
-
-For Backend
-````
-npm install @sosocio/eslint-config-backend@1.0.12
-````
+```
 
 Then create a **.eslintrc.js**:
 
@@ -23,7 +16,6 @@ Then create a **.eslintrc.js**:
 module.exports = {
   extends: [
 	"@sosocio/eslint-config-frontend", 
-	"@sosocio/eslint-config-backend"
 	]
 };
 ```
