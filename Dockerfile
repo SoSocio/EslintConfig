@@ -40,7 +40,7 @@ FROM base-image AS build-image
 # Include global arg in this stage of the build
 ARG PROJECT_DIR
 
-# Install dependencies for prisma
+# Install dependencies
 RUN apt-get install -y \
     groff \
 	groff-base \
