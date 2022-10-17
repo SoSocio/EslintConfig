@@ -9,12 +9,12 @@ In order to add eslint config, you'll need to add the following settings:
 
 For Frontend
 ````
-npm install @sosocio/eslint-config-frontend@1.0.18
+npm install @sosocio/eslint-config-frontend@1.0.19
 ````
 
 For Backend
 ````
-npm install @sosocio/eslint-config-backend@1.0.12
+npm install @sosocio/eslint-config-backend@1.0.13
 ````
 
 Then create a **.eslintrc.js**:
