@@ -7,12 +7,12 @@ build_and_publish () {
 PACKAGE_VERSION=$(echo $CIRCLE_TAG | sed 's/v//') || exit 1
 cd /home/app
 echo 'Publish ESLintConfig'
-build_and_publish()
+build_and_publish
 cd /home/app/Frontend
 echo 'Publish ESLintConfig Frontend'
-build_and_publish()
+build_and_publish
 cd /home/app/Backend
 echo 'Publish ESLintConfig Backend'
-build_and_publish()
+build_and_publish
 cd /home/app
 echo 'Done'

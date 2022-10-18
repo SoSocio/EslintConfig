@@ -148,9 +148,6 @@ RUN echo "cd ${PROJECT_DIR}" >> ${ENTRYPOINT_DIR}/entry_point.sh
 #Export DOPPLER_TOKEN into the environment
 RUN echo "source ${PROJECT_DIR}/.env" >> ${ENTRYPOINT_DIR}/entry_point.sh
 
-#Run Docker build
-# RUN echo "doppler run -- npm run build" >> ${ENTRYPOINT_DIR}/entry_point.sh
-
 # Make the script executable
 RUN chmod +x ${ENTRYPOINT_DIR}/entry_point.sh
 
