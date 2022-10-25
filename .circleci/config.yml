@@ -1,0 +1,146 @@
+version: 2.1
+
+parameters:
+  imageName:
+    type: string
+    default: eslint-config
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:14.19
+    working_directory: ~/workspace
+    resource_class: medium
+
+commands:
+    manage-build-and-publish:
+      description: "Reusable command build stage to enable dry run on commit and publish on tag"
+      parameters:
+        options:
+          type: string
+          default: ""
+        circle-tag:
+          type: string
+          default: "v1.0.0"
+      steps:
+        - add_ssh_keys
+        - attach_workspace:
+            at: ~/workspace
+        - setup_remote_docker:
+            docker_layer_caching: true
+        - run:
+            name: Import docker image
+            command: docker import docker-image/image.tar << pipeline.parameters.imageName >>:latest
+        - run:
+            name: Export CI environment variables
+            command: env >> ./.ci.env
+        - run:
+            name: Build and Publish Package 
+            command: |             
+              docker run --env-file ./.ci.env \
+              --name << pipeline.parameters.imageName >> \
+              -it << pipeline.parameters.imageName >> \
+              sh -l -c "export CIRCLE_TAG=\"<< parameters.circle-tag >>\"  && \
+              export ISDRYRUN=\"<< parameters.options >>\"  && \
+              chmod +x /home/app/.circleci/build_publish.sh && \
+              /home/app/.circleci/build_publish.sh"
+        - run:
+            name: Copy dist folder for storing to artifacts
+            command: docker cp << pipeline.parameters.imageName >>:/home/app/dist ~/workspace/dist
+        - run:
+            name: Export image to an archive
+            command: |
+              mkdir -p docker-image && \
+              docker export << pipeline.parameters.imageName >> > docker-image/image.tar
+        - persist_to_workspace:
+            root: .
+            paths:
+              - docker-image
+        - store_artifacts:
+            path: docker-image
+        - store_artifacts:
+            path: dist
+
+
+
+jobs:
+  setup:
+    executor: node-executor
+    steps:
+      - add_ssh_keys
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build Docker image
+          command: docker build --target prod-image --build-arg GITHUB_AUTH_TOKEN=$GITHUB_AUTH_TOKEN  -t << pipeline.parameters.imageName >> .
+      - run:
+          name: Export CI environment variables
+          command: env >> ./.ci.env
+      - run:
+          name: Run docker container
+          command: |
+            docker run --env-file ./.ci.env \
+            --name << pipeline.parameters.imageName >> \
+            -it << pipeline.parameters.imageName >> \
+            sh -l -c "env"
+      - run:
+          name: Export image to an archive
+          command: |
+            mkdir -p docker-image && \
+            docker export << pipeline.parameters.imageName >> > docker-image/image.tar
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docker-image
+      - store_artifacts:
+          path: docker-image
+  build-and-test-publish:
+    executor: node-executor
+    steps:
+       - manage-build-and-publish: # invoke command "manage-build-and-publish"
+          options: "--dry-run"
+          circle-tag: "v1.0.0"
+  build-and-publish:
+    executor: node-executor
+    steps:
+       - manage-build-and-publish: # invoke command "manage-build-and-publish"
+          circle-tag: $CIRCLE_TAG
+
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - setup:
+          context:
+            - github-read-access
+      - build-and-test-publish:
+          context:
+            - github-packages
+          requires:
+            - setup
+  tag:
+    jobs:
+      - setup:
+          context:
+            - github-packages
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+      - request-publish-package:
+          type: approval
+          requires:
+            - setup
+          filters:
+            tags:
+              only: /^v.*/
+      - build-and-publish:
+          context:
+            - github-packages
+          requires:
+            - request-publish-package
+          filters:
+            tags:
+              only: /^v.*/
