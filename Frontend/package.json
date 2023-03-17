@@ -1,6 +1,6 @@
 {
   "name": "@sosocio/eslint-config-frontend",
-  "version": "1.0.19",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "directory": "@sosocio/eslint-config-frontend"
   },
   "dependencies": {
-    "@sosocio/eslint-config": "^1.0.27"
+    "@sosocio/eslint-config": "^1.1.0"
   },
   "devDependencies": {
     "eslint-plugin-vue": "^7.17.0"
