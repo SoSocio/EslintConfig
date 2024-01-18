@@ -31,7 +31,7 @@
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-plugin-json": "^3.1.0",
 		"eslint-plugin-json-schema-validator": "^4.7.4",
-		"eslint-plugin-jsonc": "^2.11.2"
+		"eslint-plugin-jsonc": "^2.12.2"
 	}
 }
 
