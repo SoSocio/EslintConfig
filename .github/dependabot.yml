@@ -1,8 +1,17 @@
 version: 2
+registries:	
+  '@sosocio':
+    type: npm-registry
+    url: https://npm.pkg.github.com/
+    token: ${{secrets.FASTEDITOR_GITHUB_AUTH_TOKEN}}
 updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Amsterdam"
     reviewers:
       - "SoSocio/developers"
+    registries: '*'
