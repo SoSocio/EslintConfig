@@ -4,7 +4,7 @@ ARG ENTRYPOINT_DIR="/home/docker"
 
 ##############################################################################
 # Stage 1: Install dependencies
-FROM node:16-buster AS base-image
+FROM node:18-buster AS base-image
 ##############################################################################
 
 # Include global arg in this stage of the build
