@@ -4,7 +4,7 @@ ARG ENTRYPOINT_DIR="/home/docker"
 
 ##############################################################################
 # Stage 1: Install dependencies
-FROM node:16-buster AS base-image
+FROM node:18-buster AS base-image
 ##############################################################################
 
 # Include global arg in this stage of the build
@@ -77,8 +77,6 @@ ARG GITHUB_AUTH_TOKEN
 
 # Set user to "root" for the subsequent commands being run
 USER "root"
-# Set the config with the user "root"
-RUN npm config set user "root"
 
 # Remove .npmrc from project directory
 RUN rm "${PROJECT_DIR}/.npmrc"
@@ -106,10 +104,6 @@ RUN mkdir -p "$NPM_CONFIG_PREFIX/lib"
 
 # Create the bin directory (and parents if needed) for the global node directory
 RUN mkdir -p "$NPM_CONFIG_PREFIX/bin"
-
-# Set the global config with the user "node" since node global
-# doesn't run on any specific user, which causes permissions issues
-RUN npm -g config set user "node"
 
 # Install as global to have it available.
 RUN npm install -g prisma@4.3.0
