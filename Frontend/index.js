@@ -5,7 +5,8 @@ module.exports = {
     },
 	extends: [
 		'@sosocio/eslint-config',
-		'plugin:vue/recommended',
+		'plugin:vue/vue3-recommended',
+		'plugin:vue-pug/vue3-recommended',
 	],
     rules: {
 		'vue/html-indent': [

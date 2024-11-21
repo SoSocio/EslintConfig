@@ -1,26 +1,27 @@
 {
-  "name": "@sosocio/eslint-config-frontend",
-  "version": "1.1.2",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "pub": "npm publish"
-  },
-  "author": "",
-  "license": "ISC",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/sosocio"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/SoSocio/EslintConfig.git",
-    "directory": "@sosocio/eslint-config-frontend"
-  },
-  "dependencies": {
-    "@sosocio/eslint-config": "^1.1.2"
-  },
-  "devDependencies": {
-    "eslint-plugin-vue": "^9.20.0"
-  }
+	"name": "@sosocio/eslint-config-frontend",
+	"version": "1.1.2",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"pub": "npm publish"
+	},
+	"author": "",
+	"license": "ISC",
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/sosocio"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/SoSocio/EslintConfig.git",
+		"directory": "@sosocio/eslint-config-frontend"
+	},
+	"dependencies": {
+		"@sosocio/eslint-config": "^2.0.0"
+	},
+	"devDependencies": {
+		"eslint-plugin-vue": "^9.31.0",
+		"eslint-plugin-vue-pug": "^0.6.2"
+	}
 }
