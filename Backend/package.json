@@ -2,9 +2,15 @@
 	"name": "@sosocio/eslint-config-backend",
 	"version": "1.1.2",
 	"description": "",
-	"main": "index.js",
+	"type": "module",
+	"main": "dist/index.js",
+	"exports": {
+		".": "./dist/index.js"
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc",
+		"prepublish": "npm run build",
 		"pub": "npm publish"
 	},
 	"author": "",
@@ -18,6 +24,11 @@
 		"directory": "@sosocio/eslint-config-backend"
 	},
 	"dependencies": {
-		"@sosocio/eslint-config": "^2.0.0"
+		"@sosocio/eslint-config": "3.0.0-beta.0"
+	},
+	"devDependencies": {
+		"eslint": "^9.34.0",
+		"typescript": "^5.3.3",
+		"typescript-eslint": "^8.42.0"
 	}
 }
