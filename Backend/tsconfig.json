@@ -5,7 +5,7 @@
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "declaration": true,
-    "outDir": "./dist/lib",
+    "outDir": "./dist",
     "strict": true,
     "skipLibCheck": true,
     "noImplicitAny": false,
