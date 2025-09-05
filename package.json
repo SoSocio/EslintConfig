@@ -11,6 +11,10 @@
 		}
 	},
 	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"*.d.ts"
+	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "tsc",
