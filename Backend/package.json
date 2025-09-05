@@ -14,7 +14,8 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "tsc",
-		"prepublish": "npm run build",
+		"prepare": "npm run build",
+		"prepublishOnly": "npm run build",
 		"pub": "npm publish"
 	},
 	"author": "",
@@ -22,6 +23,10 @@
 	"publishConfig": {
 		"registry": "https://npm.pkg.github.com/sosocio"
 	},
+	"files": [
+		"dist",
+		"README.md"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/SoSocio/EslintConfig.git",
