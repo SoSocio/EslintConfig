@@ -2,9 +2,15 @@
 	"name": "@sosocio/eslint-config-frontend",
 	"version": "1.1.2",
 	"description": "",
-	"main": "index.js",
+	"type": "module",
+	"main": "dist/index.js",
+	"exports": {
+		".": "./dist/index.js"
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc",
+		"prepublish": "npm run build",
 		"pub": "npm publish"
 	},
 	"author": "",
@@ -18,10 +24,15 @@
 		"directory": "@sosocio/eslint-config-frontend"
 	},
 	"dependencies": {
-		"@sosocio/eslint-config": "^2.0.0"
+		"@sosocio/eslint-config": "3.0.0-beta.0"
 	},
 	"devDependencies": {
+		"eslint": "^9.34.0",
 		"eslint-plugin-vue": "^9.31.0",
-		"eslint-plugin-vue-pug": "^0.6.2"
+		"eslint-plugin-vue-pug": "^0.6.2",
+		"globals": "^13.24.0",
+		"typescript": "^5.3.3",
+		"typescript-eslint": "^8.42.0",
+		"vue-eslint-parser": "^9.0.0"
 	}
 }
