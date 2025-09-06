@@ -1,6 +1,9 @@
 #! /bin/sh
 build_and_publish () {
   sed -i 's|"version":.*|"version": '\"$PACKAGE_VERSION\",'|g' package.json || exit 1
+  echo "Building package..."
+  npm run build || exit 1
+  echo "Publishing package..."
   npm run pub -- $ISDRYRUN || exit 1
 }
 PACKAGE_VERSION=$(echo $CIRCLE_TAG | sed 's/v//') || exit 1
