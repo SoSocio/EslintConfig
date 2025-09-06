@@ -1,6 +1,8 @@
 #! /bin/sh
 build_and_publish () {
   sed -i 's|"version":.*|"version": '\"$PACKAGE_VERSION\",'|g' package.json || exit 1
+  echo "Installing dependencies..."
+  npm install || exit 1
   echo "Building package..."
   npm run build || exit 1
   echo "Publishing package..."
