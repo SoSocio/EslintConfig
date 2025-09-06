@@ -1,7 +1,7 @@
 import eslint from '@eslint/js';
 import globals from 'globals';
 import typescriptEslint from 'typescript-eslint';
-import stylisticJs from '@stylistic/eslint-plugin-js';
+import stylisticJs from '@stylistic/eslint-plugin';
 import { defineConfig } from 'eslint/config';
 export default defineConfig({
     extends: [

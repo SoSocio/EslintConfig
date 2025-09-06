@@ -11,6 +11,9 @@
 		}
 	},
 	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "tsc",
@@ -28,7 +31,7 @@
 		"directory": "@sosocio/eslint-config-frontend"
 	},
 	"dependencies": {
-		"@sosocio/eslint-config": "3.0.0-beta.2"
+		"@sosocio/eslint-config": "3.0.0-beta.5"
 	},
 	"devDependencies": {
 		"eslint": "^9.34.0",
