@@ -12,7 +12,10 @@
 	},
 	"types": "./dist/index.d.ts",
 	"files": [
-		"dist"
+		"dist",
+		"index.ts",
+		"tsconfig.json",
+		"sosocio-eslint-config.d.ts"
 	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
