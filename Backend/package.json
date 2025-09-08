@@ -34,7 +34,7 @@
 		"directory": "@sosocio/eslint-config-backend"
 	},
 	"dependencies": {
-		"@sosocio/eslint-config": "3.0.0-beta.6"
+		"@sosocio/eslint-config": "^2.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^9.34.0",
