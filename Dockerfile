@@ -33,13 +33,9 @@ USER "root"
 # Set up npm registry using helper script
 RUN setup-npm-registry.sh
 
-# Create .npmrc to Frontend project directory (required for @sosocio/eslint)
-RUN echo "@sosocio:registry=https://npm.pkg.github.com/" >> "${PROJECT_DIR}/Frontend/.npmrc"
-RUN echo "//npm.pkg.github.com/:_authToken=$GITHUB_AUTH_TOKEN" >> "${PROJECT_DIR}/Frontend/.npmrc"
-# Create .npmrc to Backend project directory (required for @sosocio/eslint)
-RUN echo "@sosocio:registry=https://npm.pkg.github.com/" >> "${PROJECT_DIR}/Backend/.npmrc"
-RUN echo "//npm.pkg.github.com/:_authToken=$GITHUB_AUTH_TOKEN" >> "${PROJECT_DIR}/Backend/.npmrc"
-RUN npm config set @sosocio:registry https://npm.pkg.github.com
+# Copy the .npmrc file to the Frontend and Backend directories
+RUN cp "${PROJECT_DIR}/.npmrc" "${PROJECT_DIR}/Frontend/.npmrc"
+RUN cp "${PROJECT_DIR}/.npmrc" "${PROJECT_DIR}/Backend/.npmrc"
 
 # Set working directory to the App directory
 # Install dependencies
