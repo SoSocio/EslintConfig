@@ -37,6 +37,7 @@ RUN setup-npm-registry.sh
 RUN cp "${PROJECT_DIR}/.npmrc" "${PROJECT_DIR}/Frontend/.npmrc"
 RUN cp "${PROJECT_DIR}/.npmrc" "${PROJECT_DIR}/Backend/.npmrc"
 
+
 # Set working directory to the App directory
 # Install dependencies
 RUN npm install
