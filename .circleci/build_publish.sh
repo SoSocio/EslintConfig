@@ -40,7 +40,7 @@ if [ -n "$CIRCLE_TAG" ]; then
   sed -i 's|"version":.*|"version": '\"$PACKAGE_VERSION\",'|g' package.json
   echo "Updating and installing dependencies for Frontend package..."
   npm install --save "/home/app/${BASE_PACKAGE_TARBALL}"
-  npm install # Install any other dependencies
+  npm install
   build_package
 
   # --- Backend Package ---
@@ -49,7 +49,7 @@ if [ -n "$CIRCLE_TAG" ]; then
   sed -i 's|"version":.*|"version": '\"$PACKAGE_VERSION\",'|g' package.json
   echo "Updating and installing dependencies for Backend package..."
   npm install --save "/home/app/${BASE_PACKAGE_TARBALL}"
-  npm install # Install any other dependencies
+  npm install
   build_package
 
   # --- Publish all packages ---
