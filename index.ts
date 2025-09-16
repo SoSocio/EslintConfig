@@ -43,7 +43,7 @@ export default defineConfig({
             },
         ],
         '@stylistic/js/semi': 'error',
-        // Reason: we DON'T allow @ts-ignore to be used, only @ts-expect-error
+        // Reason: we DON'T allow @ts-ignore to be used, only @ts-expect-error with a description of at least 3 characters
         '@typescript-eslint/ban-ts-comment': 'error',
         '@typescript-eslint/no-shadow': 'error',
         '@typescript-eslint/no-unused-vars': 'error',
