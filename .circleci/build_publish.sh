@@ -38,10 +38,8 @@ if [ -n "$CIRCLE_TAG" ]; then
   cd /home/app/Frontend
   echo "Preparing Frontend package"
   sed -i 's|"version":.*|"version": '\"$PACKAGE_VERSION\",'|g' package.json
-  echo "Updating base package dependency to correct version in package.json..."
-  sed -i 's|"@sosocio/eslint-config":.*|"@sosocio/eslint-config": "'\"$PACKAGE_VERSION\"'",|g' package.json
-  echo "Installing dependencies for Frontend package..."
-  npm install --no-save "/home/app/${BASE_PACKAGE_TARBALL}"
+  echo "Updating and installing dependencies for Frontend package..."
+  npm install --save "/home/app/${BASE_PACKAGE_TARBALL}"
   npm install
   build_package
 
@@ -49,10 +47,8 @@ if [ -n "$CIRCLE_TAG" ]; then
   cd /home/app/Backend
   echo "Preparing Backend package"
   sed -i 's|"version":.*|"version": '\"$PACKAGE_VERSION\",'|g' package.json
-  echo "Updating base package dependency to correct version in package.json..."
-  sed -i 's|"@sosocio/eslint-config":.*|"@sosocio/eslint-config": "'\"$PACKAGE_VERSION\"'",|g' package.json
-  echo "Installing dependencies for Backend package..."
-  npm install --no-save "/home/app/${BASE_PACKAGE_TARBALL}"
+  echo "Updating and installing dependencies for Backend package..."
+  npm install --save "/home/app/${BASE_PACKAGE_TARBALL}"
   npm install
   build_package
 
