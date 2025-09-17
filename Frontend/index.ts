@@ -6,7 +6,7 @@ import typescriptEslint from 'typescript-eslint';
 import vueEslint from 'vue-eslint-parser';
 import { defineConfig } from 'eslint/config';
 
-export default defineConfig([
+export default defineConfig(
     fasteditor,
     {
         extends: [
@@ -26,4 +26,4 @@ export default defineConfig([
             'vue/multi-word-component-names': 'off',
         },
     }
-]);
+);

@@ -10,5 +10,5 @@
     "skipLibCheck": true,
     "noImplicitAny": false
   },
-  "include": ["index.ts", "eslint-scope.d.ts", "eslint-config.d.ts"]
+  "include": ["index.ts"]
 }
