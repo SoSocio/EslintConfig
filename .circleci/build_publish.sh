@@ -35,7 +35,8 @@ if [ -n "$CIRCLE_TAG" ]; then
     base)
       cd /home/app
       echo "Preparing base package: $BASE_PACKAGE_NAME"
-      sed -i 's|"version":.*|"version": '"$PACKAGE_VERSION",'|g' package.json
+  # Safely replace version value (keep surrounding JSON structure)
+  sed -i 's|"version"[[:space:]]*:[[:space:]]*"[^"]*"|"version": "'$PACKAGE_VERSION'"|' package.json
       npm install
       build_package
       publish_package
@@ -43,8 +44,8 @@ if [ -n "$CIRCLE_TAG" ]; then
       ;;
     frontend)
       cd /home/app/Frontend
-      sed -i 's|"version":.*|"version": '"$PACKAGE_VERSION",'|g' package.json
-      sed -i 's|"@sosocio/eslint-config": *"[^"]*"|"@sosocio/eslint-config": '"\"$PACKAGE_VERSION\"",'|g' package.json
+  sed -i 's|"version"[[:space:]]*:[[:space:]]*"[^"]*"|"version": "'$PACKAGE_VERSION'"|' package.json
+  sed -i 's|"@sosocio/eslint-config"[[:space:]]*:[[:space:]]*"[^"]*"|"@sosocio/eslint-config": "'$PACKAGE_VERSION'"|' package.json
       npm install
       build_package
       publish_package
@@ -52,8 +53,8 @@ if [ -n "$CIRCLE_TAG" ]; then
       ;;
     backend)
       cd /home/app/Backend
-      sed -i 's|"version":.*|"version": '"$PACKAGE_VERSION",'|g' package.json
-      sed -i 's|"@sosocio/eslint-config": *"[^"]*"|"@sosocio/eslint-config": '"\"$PACKAGE_VERSION\"",'|g' package.json
+  sed -i 's|"version"[[:space:]]*:[[:space:]]*"[^"]*"|"version": "'$PACKAGE_VERSION'"|' package.json
+  sed -i 's|"@sosocio/eslint-config"[[:space:]]*:[[:space:]]*"[^"]*"|"@sosocio/eslint-config": "'$PACKAGE_VERSION'"|' package.json
       npm install
       build_package
       publish_package
