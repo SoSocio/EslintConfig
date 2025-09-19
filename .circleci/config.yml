@@ -20,7 +20,7 @@ commands:
           default: ""
         circle-tag:
           type: string
-          default: "v1.0.0"
+          default: ""
         publish-target:
           description: "Which package to build/publish: base | frontend | backend (required for tag workflow)"
           type: string
@@ -104,7 +104,6 @@ jobs:
     steps:
        - manage-build-and-publish: # invoke command "manage-build-and-publish"
           options: "--dry-run"
-          circle-tag: "v1.0.0"
 
   publish-base:
     executor: node-executor
