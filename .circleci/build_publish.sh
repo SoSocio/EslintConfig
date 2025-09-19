@@ -24,42 +24,48 @@ if [ -n "$CIRCLE_TAG" ]; then
   PACKAGE_VERSION=$(echo $CIRCLE_TAG | sed 's/v//')
   BASE_PACKAGE_NAME="@sosocio/eslint-config"
 
-  # --- Base Package ---
-  cd /home/app
-  echo "Preparing base package: $BASE_PACKAGE_NAME"
-  sed -i 's|"version":.*|"version": '\"$PACKAGE_VERSION\",'|g' package.json
-  npm install # Install only base dependencies
-  build_package
-  echo "Creating tarball for base package..."
-  BASE_PACKAGE_TARBALL=$(npm pack | tail -n 1)
-  echo "Created $BASE_PACKAGE_TARBALL"
+  if [ -z "$PUBLISH_TARGET" ]; then
+    echo "ERROR: PUBLISH_TARGET must be set (base|frontend|backend) for release builds." >&2
+    exit 1
+  fi
 
-  # --- Frontend Package ---
-  cd /home/app/Frontend
-  echo "Preparing Frontend package"
-  sed -i 's|"version":.*|"version": '\"$PACKAGE_VERSION\",'|g' package.json
-  echo "Updating and installing dependencies for Frontend package..."
-  npm install --save "/home/app/${BASE_PACKAGE_TARBALL}"
-  npm install
-  build_package
+  echo "Publish target: $PUBLISH_TARGET"
 
-  # --- Backend Package ---
-  cd /home/app/Backend
-  echo "Preparing Backend package"
-  sed -i 's|"version":.*|"version": '\"$PACKAGE_VERSION\",'|g' package.json
-  echo "Updating and installing dependencies for Backend package..."
-  npm install --save "/home/app/${BASE_PACKAGE_TARBALL}"
-  npm install
-  build_package
+  case "$PUBLISH_TARGET" in
+    base)
+      cd /home/app
+      echo "Preparing base package: $BASE_PACKAGE_NAME"
+      sed -i 's|"version":.*|"version": '"$PACKAGE_VERSION",'|g' package.json
+      npm install
+      build_package
+      publish_package
+      echo "Base package published."
+      ;;
+    frontend)
+      cd /home/app/Frontend
+      sed -i 's|"version":.*|"version": '"$PACKAGE_VERSION",'|g' package.json
+      sed -i 's|"@sosocio/eslint-config": *"[^"]*"|"@sosocio/eslint-config": '"\"$PACKAGE_VERSION\"",'|g' package.json
+      npm install
+      build_package
+      publish_package
+      echo "Frontend package published."
+      ;;
+    backend)
+      cd /home/app/Backend
+      sed -i 's|"version":.*|"version": '"$PACKAGE_VERSION",'|g' package.json
+      sed -i 's|"@sosocio/eslint-config": *"[^"]*"|"@sosocio/eslint-config": '"\"$PACKAGE_VERSION\"",'|g' package.json
+      npm install
+      build_package
+      publish_package
+      echo "Backend package published."
+      ;;
+    *)
+      echo "ERROR: Unknown PUBLISH_TARGET '$PUBLISH_TARGET' (expected base|frontend|backend)." >&2
+      exit 1
+      ;;
+  esac
 
-  # --- Publish all packages ---
-  echo "All packages built successfully. Now publishing..."
-  cd /home/app
-  publish_package
-  cd /home/app/Frontend
-  publish_package
-  cd /home/app/Backend
-  publish_package
+  exit 0
 
 else
   # ---------------------------------------------------
