@@ -74,16 +74,23 @@ else
   echo "Running in VALIDATION mode (no tag found)."
 
   cd /home/app
-  echo "Installing all workspace dependencies..."
-  # This single command installs dependencies for all packages
-  # and symlinks local packages (@sosocio/eslint-config, frontend, backend)
+  echo "Installing base package dependencies..."
   npm install
 
-  echo "Building all packages..."
-  # Use -w to run the build script in a specific workspace
+  echo "Building base package..."
   npm run build
-  npm run build -w @sosocio/eslint-config-frontend
-  npm run build -w @sosocio/eslint-config-backend
+
+  echo "Installing Frontend package dependencies..."
+  cd /home/app/Frontend
+  npm install
+  echo "Building Frontend package..."
+  npm run build || npm run build
+
+  echo "Installing Backend package dependencies..."
+  cd /home/app/Backend
+  npm install
+  echo "Building Backend package..."
+  npm run build || npm run build
 fi
 
 echo 'Done'
