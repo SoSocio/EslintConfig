@@ -20,7 +20,11 @@ commands:
           default: ""
         circle-tag:
           type: string
-          default: "v1.0.0"
+          default: ""
+        publish-target:
+          description: "Which package to build/publish: base | frontend | backend (required for tag workflow)"
+          type: string
+          default: ""
       steps:
         - add_ssh_keys
         - attach_workspace:
@@ -34,13 +38,14 @@ commands:
             name: Export CI environment variables
             command: env >> ./.ci.env
         - run:
-            name: Build and Publish Package 
-            command: |             
+            name: Build and Publish Package
+            command: |
               docker run --env-file ./.ci.env \
               --name << pipeline.parameters.imageName >> \
               -it << pipeline.parameters.imageName >> \
               sh -l -c "export CIRCLE_TAG=\"<< parameters.circle-tag >>\"  && \
               export ISDRYRUN=\"<< parameters.options >>\"  && \
+              export PUBLISH_TARGET=\"<< parameters.publish-target >>\" && \
               chmod +x /home/app/.circleci/build_publish.sh && \
               /home/app/.circleci/build_publish.sh"
         - run:
@@ -99,12 +104,27 @@ jobs:
     steps:
        - manage-build-and-publish: # invoke command "manage-build-and-publish"
           options: "--dry-run"
-          circle-tag: "v1.0.0"
-  build-and-publish:
+
+  publish-base:
     executor: node-executor
     steps:
-       - manage-build-and-publish: # invoke command "manage-build-and-publish"
+      - manage-build-and-publish:
           circle-tag: $CIRCLE_TAG
+          publish-target: "base"
+
+  publish-frontend:
+    executor: node-executor
+    steps:
+      - manage-build-and-publish:
+          circle-tag: $CIRCLE_TAG
+          publish-target: "frontend"
+
+  publish-backend:
+    executor: node-executor
+    steps:
+      - manage-build-and-publish:
+          circle-tag: $CIRCLE_TAG
+          publish-target: "backend"
 
 
 workflows:
@@ -136,11 +156,27 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-      - build-and-publish:
+      - publish-base:
           context:
             - github-packages
           requires:
             - request-publish-package
+          filters:
+            tags:
+              only: /^v.*/
+      - publish-frontend:
+          context:
+            - github-packages
+          requires:
+            - publish-base
+          filters:
+            tags:
+              only: /^v.*/
+      - publish-backend:
+          context:
+            - github-packages
+          requires:
+            - publish-base
           filters:
             tags:
               only: /^v.*/
