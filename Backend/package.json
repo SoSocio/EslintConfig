@@ -14,8 +14,7 @@
 	"files": [
 		"dist",
 		"index.ts",
-		"tsconfig.json",
-		"sosocio-eslint-config.d.ts"
+		"tsconfig.json"
 	],
 	"scripts": {
 		"build": "tsc",
@@ -33,11 +32,11 @@
 		"directory": "@sosocio/eslint-config-backend"
 	},
 	"dependencies": {
-		"@sosocio/eslint-config": "^2.0.0"
+		"@sosocio/eslint-config": "^3.0.0"
 	},
 	"devDependencies": {
-		"eslint": "^9.34.0",
-		"typescript": "^5.3.3",
-		"typescript-eslint": "^8.42.0"
+		"eslint": "^9.36.0",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.44.1"
 	}
 }
