@@ -14,8 +14,7 @@
 	"files": [
 		"dist",
 		"index.ts",
-		"tsconfig.json",
-		"sosocio-eslint-config.d.ts"
+		"tsconfig.json"
 	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -34,15 +33,15 @@
 		"directory": "@sosocio/eslint-config-frontend"
 	},
 	"dependencies": {
-		"@sosocio/eslint-config": "^2.0.0"
+		"@sosocio/eslint-config": "^3.0.0"
 	},
 	"devDependencies": {
-		"eslint": "^9.34.0",
-		"eslint-plugin-vue": "^9.31.0",
-		"eslint-plugin-vue-pug": "^0.6.2",
-		"globals": "^13.24.0",
-		"typescript": "^5.3.3",
-		"typescript-eslint": "^8.42.0",
-		"vue-eslint-parser": "^9.0.0"
+		"eslint": "^9.36.0",
+		"eslint-plugin-vue": "^10.5.0",
+		"eslint-plugin-vue-pug": "^1.0.0-alpha.4",
+		"globals": "^16.4.0",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.44.1",
+		"vue-eslint-parser": "^10.2.0"
 	}
 }

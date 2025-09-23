@@ -1,14 +1,17 @@
 import fasteditor from '@sosocio/eslint-config';
 import pluginVue from 'eslint-plugin-vue';
-import globals from 'globals';
 import pluginVuePug from 'eslint-plugin-vue-pug';
+import { defineConfig } from 'eslint/config';
+import globals from 'globals';
 import typescriptEslint from 'typescript-eslint';
 import vueEslint from 'vue-eslint-parser';
-import { defineConfig } from 'eslint/config';
 
 export default defineConfig(
     fasteditor,
     {
+		files: [
+			'**/*.vue',
+		],
         extends: [
             pluginVue.configs['flat/recommended'],
             pluginVuePug.configs['flat/recommended'],
@@ -23,7 +26,19 @@ export default defineConfig(
             },
         },
         rules: {
-            'vue/multi-word-component-names': 'off',
+			'vue/html-indent': [
+				'error',
+				'tab',
+			],
+			'vue/multi-word-component-names': 'off',
+			'vue/no-v-html': 'off',
         },
-    }
+    },
+	{
+		languageOptions: {
+			globals: {
+				window: 'readonly',
+			},
+		},
+	},
 );
