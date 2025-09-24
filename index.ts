@@ -136,6 +136,10 @@ export default defineConfig(
 		},
 	},
 	{
+		files: jsAndTsFilePatterns,
+		plugins: {
+			import: pluginImport,
+		},
 		settings: {
 			'import/resolver': {
 				typescript: {
