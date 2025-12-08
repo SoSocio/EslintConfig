@@ -59,16 +59,8 @@ const config = defineConfig(
 			'@typescript-eslint/no-unused-vars': ['warn'],
 			'@typescript-eslint/explicit-module-boundary-types': 'off',
 			'@typescript-eslint/no-floating-promises': ['error'],
-			// JS no-unused-vars retained for non-TS files
-			'no-unused-vars': [
-				'error',
-				{
-					vars: 'all',
-					args: 'all',
-					argsIgnorePattern: '^_',
-					varsIgnorePattern: '[iI]gnored',
-				},
-			],
+			// Disable base rule here; enable for JS in per-file override
+			'no-unused-vars': 'off',
 		},
 	},
 
@@ -79,6 +71,14 @@ const config = defineConfig(
 			indent: 'off',
 			'@typescript-eslint/indent': ['error', 'tab', { SwitchCase: 1 }],
 			'@typescript-eslint/no-explicit-any': 'error',
+			// Enforce no unused variables for TS
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{
+					argsIgnorePattern: '^_',
+					varsIgnorePattern: '[iI]gnored',
+				},
+			],
 		},
 	},
 	{
@@ -86,6 +86,16 @@ const config = defineConfig(
 		rules: {
 			'@typescript-eslint/no-var-requires': 'off',
 			'@typescript-eslint/explicit-function-return-type': 'off',
+			// Enable base rule for JS files only
+			'no-unused-vars': [
+				'error',
+				{
+					vars: 'all',
+					args: 'all',
+					argsIgnorePattern: '^_',
+					varsIgnorePattern: '[iI]gnored',
+				},
+			],
 		},
 	},
 );
