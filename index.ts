@@ -140,11 +140,7 @@ export default defineConfig(
 		settings: {
 			'import/resolver': {
 				typescript: {
-					extensions: jsAndTsFilePatterns.map((pattern) => (
-						pattern.slice(
-							pattern.lastIndexOf('.'),
-						)
-					)),
+					alwaysTryTypes: true,
 					project: [
 						'./tsconfig.json',
 					],
