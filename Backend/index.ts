@@ -6,10 +6,10 @@ import baseConfig from '@sosocio/eslint-config';
 
 const config = defineConfig(
 	// Reuse the shared base config exported at EslintConfig/index.ts
-	...baseConfig,
+	baseConfig,
 
 	// TypeScript + Node environment using recommended flat configs
-	...typescriptEslint.configs.recommended,
+	typescriptEslint.configs.recommended,
 	{
 		languageOptions: {
 			parser: typescriptEslint.parser,
