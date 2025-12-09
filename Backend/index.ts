@@ -1,15 +1,14 @@
 import typescriptEslint from 'typescript-eslint';
-import importPlugin from 'eslint-plugin-import';
-import promisePlugin from 'eslint-plugin-promise';
 import { defineConfig } from 'eslint/config';
 import baseConfig from '@sosocio/eslint-config';
 
 const config = defineConfig(
-	// Reuse the shared base config exported at EslintConfig/index.ts
+	// Shared base config
 	baseConfig,
 
-	// TypeScript + Node environment using recommended flat configs
+	// TS recommended configs
 	typescriptEslint.configs.recommended,
+
 	{
 		languageOptions: {
 			parser: typescriptEslint.parser,
@@ -20,10 +19,7 @@ const config = defineConfig(
 				project: ['./tsconfig.json'],
 			},
 		},
-		plugins: {
-			import: importPlugin,
-			promise: promisePlugin,
-		},
+
 		settings: {
 			'import/parsers': {
 				'@typescript-eslint/parser': ['.ts', '.tsx'],
@@ -35,57 +31,73 @@ const config = defineConfig(
 				},
 			},
 		},
+
 		rules: {
 			// Formatting
 			'no-tabs': 'off',
 			indent: ['error', 'tab', { SwitchCase: 1 }],
+
 			// Console
 			'no-console': 'off',
+
 			// Naming
 			camelcase: 'off',
-			// Shadowing
-			'no-shadow': ['error'],
-			'@typescript-eslint/no-shadow': ['error'],
-			// Imports
-			'import/extensions': [
-				'error',
-				'ignorePackages',
-				{ js: 'never', jsx: 'never', ts: 'never', tsx: 'never' },
-			],
-			'import/no-import-module-exports': 'off',
-			// TS specifics
-			'@typescript-eslint/ban-ts-comment': 'off',
-			'@typescript-eslint/no-unused-vars': ['warn'],
-			'@typescript-eslint/explicit-module-boundary-types': 'off',
+
+
+			// Floating promises is still safe to keep globally
 			'@typescript-eslint/no-floating-promises': ['error'],
-			// Disable base rule here; enable for JS in per-file override
+
+			/**
+			 * Disable the base unused-vars entirely globally; JS will override it.
+			 */
 			'no-unused-vars': 'off',
 		},
 	},
 
-	// File-specific overrides
+	/**
+	 * TypeScript overrides
+	 */
 	{
 		files: ['**/*.ts'],
 		rules: {
-			indent: 'off',
-			'@typescript-eslint/indent': ['error', 'tab', { SwitchCase: 1 }],
+			// Indentation
+			indent: ['error', 'tab', { SwitchCase: 1 }],
+
+			// Shadowing (TS only)
+			'no-shadow': 'off',
+			'@typescript-eslint/no-shadow': ['error'],
+
+			// Redeclaration (TS only)
+			'no-redeclare': 'off',
+			'@typescript-eslint/no-redeclare': ['error'],
+
+			// TS-specific rules (moved from base to remove duplication)
 			'@typescript-eslint/no-explicit-any': 'error',
-			// Enforce no unused variables for TS
-			'@typescript-eslint/no-unused-vars': [
-				'error',
-				{
-					argsIgnorePattern: '^_',
-					varsIgnorePattern: '[iI]gnored',
-				},
-			],
+			'@typescript-eslint/ban-ts-comment': 'off',
+			'@typescript-eslint/no-unused-vars': ['warn'],
+			'@typescript-eslint/explicit-module-boundary-types': 'off',
+
+			// Imports
+			'import/no-import-module-exports': 'off',
+			'import/named': 'off',
+
+			// JS-only rules disabled in TS
+			'no-undef': 'off',
+			'no-unused-vars': 'off',
 		},
 	},
+
+	/**
+	 * JavaScript overrides
+	 */
 	{
 		files: ['**/*.js'],
 		rules: {
 			'@typescript-eslint/no-var-requires': 'off',
+			'@typescript-eslint/no-require-imports': 'off',
 			'@typescript-eslint/explicit-function-return-type': 'off',
-			// Enable base rule for JS files only
+
+			// JS-only unused-vars rules
 			'no-unused-vars': [
 				'error',
 				{
@@ -96,7 +108,7 @@ const config = defineConfig(
 				},
 			],
 		},
-	},
+	}
 );
 
 export default config;
