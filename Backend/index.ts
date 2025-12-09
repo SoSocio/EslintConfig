@@ -2,9 +2,11 @@ import typescriptEslint from 'typescript-eslint';
 import { defineConfig } from 'eslint/config';
 import baseConfig from '@sosocio/eslint-config';
 
-// Reuse baseConfig + TypeScript recommended configs
 const config = defineConfig(
+	// Shared base config
 	baseConfig,
+
+	// TS recommended configs
 	typescriptEslint.configs.recommended,
 
 	{
@@ -18,9 +20,6 @@ const config = defineConfig(
 			},
 		},
 
-		/**
-		 * Avoid redeclaring plugins — baseConfig already loads import/promise
-		 */
 		settings: {
 			'import/parsers': {
 				'@typescript-eslint/parser': ['.ts', '.tsx'],
@@ -44,46 +43,53 @@ const config = defineConfig(
 			// Naming
 			camelcase: 'off',
 
-			// Shadowing
-			'no-shadow': ['error'],
-			'@typescript-eslint/no-shadow': ['error'],
 
-			// TS specifics
-			'@typescript-eslint/ban-ts-comment': 'off',
-			'@typescript-eslint/no-unused-vars': ['warn'],
-			'@typescript-eslint/explicit-module-boundary-types': 'off',
+			// Floating promises is still safe to keep globally
 			'@typescript-eslint/no-floating-promises': ['error'],
 
-			// Disable base rule; enabled per-file for JS
+			/**
+			 * Disable the base unused-vars entirely globally; JS will override it.
+			 */
 			'no-unused-vars': 'off',
 		},
 	},
 
-	// TypeScript overrides
+	/**
+	 * TypeScript overrides
+	 */
 	{
 		files: ['**/*.ts'],
 		rules: {
+			// Indentation
 			indent: ['error', 'tab', { SwitchCase: 1 }],
-			'@typescript-eslint/no-explicit-any': 'error',
 
-			'no-undef': 'off',
+			// Shadowing (TS only)
 			'no-shadow': 'off',
-			'no-unused-vars': 'off',
-
 			'@typescript-eslint/no-shadow': ['error'],
+
+			// Redeclaration (TS only)
 			'no-redeclare': 'off',
 			'@typescript-eslint/no-redeclare': ['error'],
 
+			// TS-specific rules (moved from base to remove duplication)
+			'@typescript-eslint/no-explicit-any': 'error',
 			'@typescript-eslint/ban-ts-comment': 'off',
 			'@typescript-eslint/no-unused-vars': ['warn'],
 			'@typescript-eslint/explicit-module-boundary-types': 'off',
 
+			// Imports
 			'import/no-import-module-exports': 'off',
 			'import/named': 'off',
+
+			// JS-only rules disabled in TS
+			'no-undef': 'off',
+			'no-unused-vars': 'off',
 		},
 	},
 
-	// JavaScript overrides
+	/**
+	 * JavaScript overrides
+	 */
 	{
 		files: ['**/*.js'],
 		rules: {
@@ -91,7 +97,7 @@ const config = defineConfig(
 			'@typescript-eslint/no-require-imports': 'off',
 			'@typescript-eslint/explicit-function-return-type': 'off',
 
-			// JS-only unused vars rules
+			// JS-only unused-vars rules
 			'no-unused-vars': [
 				'error',
 				{
