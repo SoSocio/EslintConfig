@@ -16,7 +16,6 @@ const config = defineConfig(
 			ecmaVersion: 2018,
 			sourceType: 'module',
 			parserOptions: {
-				ecmaVersion: 2018,
 				sourceType: 'module',
 				project: ['./tsconfig.json'],
 			},
