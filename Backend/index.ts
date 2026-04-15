@@ -1,17 +1,23 @@
-import typescriptEslint from 'typescript-eslint';
+import baseConfig, { jsAndTsFilePatterns } from '@sosocio/eslint-config';
 import { defineConfig } from 'eslint/config';
-import baseConfig from '@sosocio/eslint-config';
+import {
+	configs as typescriptEslintConfigs,
+	parser as typescriptEslintParser,
+} from 'typescript-eslint';
 
-const config = defineConfig(
+export default defineConfig(
 	// Shared base config
 	baseConfig,
-
 	// TS recommended configs
-	typescriptEslint.configs.recommended,
+	{
+		files: jsAndTsFilePatterns,
+		extends: typescriptEslintConfigs.recommended,
+	},
 
 	{
+		files: jsAndTsFilePatterns,
 		languageOptions: {
-			parser: typescriptEslint.parser,
+			parser: typescriptEslintParser,
 			ecmaVersion: 2018,
 			sourceType: 'module',
 			parserOptions: {
@@ -22,7 +28,10 @@ const config = defineConfig(
 
 		settings: {
 			'import/parsers': {
-				'@typescript-eslint/parser': ['.ts', '.tsx'],
+				'@typescript-eslint/parser': [
+					'.ts',
+					'.tsx',
+				],
 			},
 			'import/resolver': {
 				typescript: {
@@ -35,14 +44,19 @@ const config = defineConfig(
 		rules: {
 			// Formatting
 			'no-tabs': 'off',
-			indent: ['error', 'tab', { SwitchCase: 1 }],
+			indent: [
+				'error',
+				'tab',
+				{
+					SwitchCase: 1,
+				},
+			],
 
 			// Console
 			'no-console': 'off',
 
 			// Naming
 			camelcase: 'off',
-
 
 			// Floating promises is still safe to keep globally
 			'@typescript-eslint/no-floating-promises': ['error'],
@@ -61,7 +75,13 @@ const config = defineConfig(
 		files: ['**/*.ts'],
 		rules: {
 			// Indentation
-			indent: ['error', 'tab', { SwitchCase: 1 }],
+			indent: [
+				'error',
+				'tab',
+				{
+					SwitchCase: 1,
+				},
+			],
 
 			// Shadowing (TS only)
 			'no-shadow': 'off',
@@ -108,7 +128,5 @@ const config = defineConfig(
 				},
 			],
 		},
-	}
+	},
 );
-
-export default config;

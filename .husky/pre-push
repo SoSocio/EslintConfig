@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+set -e
+
+pnpm run lint
+pnpm run typecheck
+pnpm run pack

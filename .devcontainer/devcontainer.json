@@ -1,27 +1,52 @@
 {
 	"name": "eslint-config",
-	// Sets the run context to one level up instead of the .devcontainer folder.
-	"context": "..",
 	"build": {
-		 "target": "dev-image"
+		"target": "dev-image",
+		"dockerFile": "../Dockerfile"
 	},
-	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-	"dockerFile": "../Dockerfile",
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"git.path": "/usr/bin/git"
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"aljazsim.tsco",
+				"bradlc.vscode-tailwindcss",
+				"christian-kohler.npm-intellisense",
+				"christian-kohler.path-intellisense",
+				"circleci.circleci",
+				"dbaeumer.vscode-eslint",
+				"eamodio.gitlens",
+				"github.copilot",
+				"github.copilot-chat",
+				"gruntfuggly.todo-tree",
+				"jasonnutter.search-node-modules",
+				"mhutchie.git-graph",
+				"mikeburgh.xml-format",
+				"mishalestev.tailwind-css-language-mode-formatter",
+				"oderwat.indent-rainbow",
+				"openai.chatgpt",
+				"redhat.vscode-xml",
+				"redhat.vscode-yaml",
+				"streetsidesoftware.code-spell-checker",
+				"styled-components.vscode-styled-components",
+				"Vue.volar"
+			]
+		}
 	},
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"dbaeumer.vscode-eslint"
-	],
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [],
+	"containerEnv": {
+		"GITHUB_PAT_TOKEN": "${localEnv:GITHUB_PAT_TOKEN}"
+	},
 	"runArgs": [
 		"--name",
 		"eslint-config",
-		"--network=sosocio"
+		"--network",
+		"sosocio",
+		"--env-file",
+		"${localWorkspaceFolder}/.env"
 	],
 	"workspaceMount": "source=${localWorkspaceFolder},target=/home/app,type=bind,consistency=cached",
-	"workspaceFolder": "/home/app"
+	"workspaceFolder": "/home/app",
+	"initializeCommand": "bash -lc 'mkdir -p \"$HOME/.codex\"'",
+	"mounts": [
+		"source=${localEnv:HOME}/.codex,target=/root/.codex,type=bind,consistency=cached"
+	],
+	"postAttachCommand": "if [ -f /home/app/.postbuild.sh ]; then /bin/bash -c /home/app/.postbuild.sh; fi"
 }
