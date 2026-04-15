@@ -1,134 +1,108 @@
 version: 2.1
 
 parameters:
-  imageName:
+  image-name:
     type: string
     default: eslint-config
-executors:
-  node-executor:
-    docker:
-      - image: cimg/node:16.0.0
-    working_directory: ~/workspace
-    resource_class: medium
+  working-directory:
+    type: string
+    default: workspace
+
+orbs:
+  circleci-pipeline-orbs: sosocio/circleci-pipeline-orbs@2.6.0
+
+filters: &filters
+  branches:
+    ignore: /.*/
+  tags:
+    only: /^v.*/
 
 commands:
-    manage-build-and-publish:
-      description: "Reusable command build stage to enable dry run on commit and publish on tag"
-      parameters:
-        options:
-          type: string
-          default: ""
-        circle-tag:
-          type: string
-          default: ""
-        publish-target:
-          description: "Which package to build/publish: base | frontend | backend (required for tag workflow)"
-          type: string
-          default: ""
-      steps:
-        - add_ssh_keys
-        - attach_workspace:
-            at: ~/workspace
-        - setup_remote_docker:
-            docker_layer_caching: true
-        - run:
-            name: Import docker image
-            command: docker import docker-image/image.tar << pipeline.parameters.imageName >>:latest
-        - run:
-            name: Export CI environment variables
-            command: env >> ./.ci.env
-        - run:
-            name: Build and Publish Package
-            command: |
-              docker run --env-file ./.ci.env \
-              --name << pipeline.parameters.imageName >> \
-              -it << pipeline.parameters.imageName >> \
-              sh -l -c "export CIRCLE_TAG=\"<< parameters.circle-tag >>\"  && \
-              export ISDRYRUN=\"<< parameters.options >>\"  && \
-              export PUBLISH_TARGET=\"<< parameters.publish-target >>\" && \
-              chmod +x /home/app/.circleci/build_publish.sh && \
-              /home/app/.circleci/build_publish.sh"
-        - run:
-            name: Copy dist folder for storing to artifacts
-            command: docker cp << pipeline.parameters.imageName >>:/home/app/dist ~/workspace/dist
-        - run:
-            name: Export image to an archive
-            command: |
-              mkdir -p docker-image && \
-              docker export << pipeline.parameters.imageName >> > docker-image/image.tar
-        - persist_to_workspace:
-            root: .
-            paths:
-              - docker-image
-        - store_artifacts:
-            path: docker-image
-        - store_artifacts:
-            path: dist
-
-
+  manage-build-and-publish:
+    description: "Reusable command build stage to enable dry run on commit and publish on tag"
+    parameters:
+      package-script:
+        description: "Package script to run: pack for dry-run validation or pub for release publishing"
+        type: string
+        default: "pack"
+      circle-tag:
+        type: string
+        default: ""
+      publish-target:
+        description: "Which package to build/publish: base | frontend | backend (required for tag workflow)"
+        type: string
+        default: ""
+    steps:
+      - circleci-pipeline-orbs/pre-run-docker-image-steps:
+          image-name: <<pipeline.parameters.image-name>>
+          working-directory: <<pipeline.parameters.working-directory>>
+      - run:
+          name: Build and Publish Package
+          command: |
+            docker run --env-file ./.ci.env \
+              --name "<<pipeline.parameters.image-name>>" \
+              -it "<<pipeline.parameters.image-name>>" \
+              sh -l -c "export CIRCLE_TAG=\"<<parameters.circle-tag>>\" && \
+              export PUBLISH_TARGET=\"<<parameters.publish-target>>\" && \
+              cd /home/app && \
+              pnpm run <<parameters.package-script>>"
 
 jobs:
   setup:
-    executor: node-executor
+    executor:
+      name: circleci-pipeline-orbs/node-executor
     steps:
       - add_ssh_keys
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - run:
-          name: Build Docker image
-          command: docker build --target prod-image --build-arg GITHUB_AUTH_TOKEN=$GITHUB_AUTH_TOKEN  -t << pipeline.parameters.imageName >> .
-      - run:
-          name: Export CI environment variables
-          command: env >> ./.ci.env
-      - run:
-          name: Run docker container
-          command: |
-            docker run --env-file ./.ci.env \
-            --name << pipeline.parameters.imageName >> \
-            -it << pipeline.parameters.imageName >> \
-            sh -l -c "env"
-      - run:
-          name: Export image to an archive
-          command: |
-            mkdir -p docker-image && \
-            docker export << pipeline.parameters.imageName >> > docker-image/image.tar
+      - circleci-pipeline-orbs/build-docker-image:
+          image-name: <<pipeline.parameters.image-name>>
+      - circleci-pipeline-orbs/export-ci-env-variables
+      - circleci-pipeline-orbs/run-docker-container:
+          image-name: <<pipeline.parameters.image-name>>
+      - circleci-pipeline-orbs/export-docker-image:
+          image-name: <<pipeline.parameters.image-name>>
       - persist_to_workspace:
           root: .
           paths:
             - docker-image
-      - store_artifacts:
-          path: docker-image
-  build-and-test-publish:
-    executor: node-executor
-    steps:
-       - manage-build-and-publish: # invoke command "manage-build-and-publish"
-          options: "--dry-run"
 
-  publish-base:
-    executor: node-executor
+  build-and-test-publish:
+    executor:
+      name: circleci-pipeline-orbs/node-executor
     steps:
       - manage-build-and-publish:
+          package-script: "pack"
+
+  publish-base:
+    executor:
+      name: circleci-pipeline-orbs/node-executor
+    steps:
+      - manage-build-and-publish:
+          package-script: "pub"
           circle-tag: $CIRCLE_TAG
           publish-target: "base"
 
   publish-frontend:
-    executor: node-executor
+    executor:
+      name: circleci-pipeline-orbs/node-executor
     steps:
       - manage-build-and-publish:
+          package-script: "pub"
           circle-tag: $CIRCLE_TAG
           publish-target: "frontend"
 
   publish-backend:
-    executor: node-executor
+    executor:
+      name: circleci-pipeline-orbs/node-executor
     steps:
       - manage-build-and-publish:
+          package-script: "pub"
           circle-tag: $CIRCLE_TAG
           publish-target: "backend"
 
-
 workflows:
-  version: 2
   commit:
     jobs:
       - setup:
@@ -139,44 +113,33 @@ workflows:
             - github-packages
           requires:
             - setup
+
   tag:
     jobs:
       - setup:
+          filters: *filters
           context:
             - github-packages
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
       - request-publish-package:
+          filters: *filters
           type: approval
           requires:
             - setup
-          filters:
-            tags:
-              only: /^v.*/
       - publish-base:
+          filters: *filters
           context:
             - github-packages
           requires:
             - request-publish-package
-          filters:
-            tags:
-              only: /^v.*/
       - publish-frontend:
+          filters: *filters
           context:
             - github-packages
           requires:
             - publish-base
-          filters:
-            tags:
-              only: /^v.*/
       - publish-backend:
+          filters: *filters
           context:
             - github-packages
           requires:
             - publish-base
-          filters:
-            tags:
-              only: /^v.*/

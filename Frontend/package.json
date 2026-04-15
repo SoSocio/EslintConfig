@@ -1,4 +1,5 @@
 {
+	"packageManager": "pnpm@10.32.0",
 	"name": "@sosocio/eslint-config-frontend",
 	"version": "1.1.2",
 	"description": "",
@@ -19,8 +20,8 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "tsc",
-		"prepublish": "npm run build",
-		"pub": "npm publish"
+		"prepublish": "pnpm run build",
+		"pub": "pnpm publish"
 	},
 	"author": "",
 	"license": "ISC",
@@ -33,15 +34,15 @@
 		"directory": "@sosocio/eslint-config-frontend"
 	},
 	"dependencies": {
-		"@sosocio/eslint-config": "^3.0.0"
+		"@sosocio/eslint-config": "workspace:^"
 	},
 	"devDependencies": {
-		"eslint": "^9.36.0",
-		"eslint-plugin-vue": "^10.5.0",
-		"eslint-plugin-vue-pug": "^1.0.0-alpha.4",
-		"globals": "^16.4.0",
+		"eslint": "^9.39.4",
+		"eslint-plugin-vue": "^10.8.0",
+		"eslint-plugin-vue-pug": "^1.0.0-alpha.5",
+		"globals": "^17.5.0",
 		"typescript": "^5.9.2",
-		"typescript-eslint": "^8.44.1",
-		"vue-eslint-parser": "^10.2.0"
+		"typescript-eslint": "^8.58.2",
+		"vue-eslint-parser": "^10.4.0"
 	}
 }

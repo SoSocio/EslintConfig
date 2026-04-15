@@ -1,0 +1,18 @@
+packages:
+  - 'Backend'
+  - 'Frontend'
+  - '!**/dist/**'
+
+nodeLinker: hoisted
+
+supportedArchitectures:
+  os:
+    - current
+    - darwin
+    - linux
+  cpu:
+    - current
+    - arm64
+  libc:
+    - current
+    - glibc
