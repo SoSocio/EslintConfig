@@ -7,20 +7,20 @@ This file provides guidance to different agents (codex, claude, grok) when worki
 ### Development
 ```bash
 # Build the project and create a local package
-npm run build
-npm run pack
+pnpm run build
+pnpm run pack
 ```
 
 ### Building
 ```bash
-npm run build
+pnpm run build
 ```
 
 ### Code Quality
 ```bash
-npm run typecheck		# TypeScript
-npm run lint			# ESLint
-npm run lint:fix		# ESLint with Auto-fix
+pnpm run typecheck		# TypeScript
+pnpm run lint			# ESLint
+pnpm run lint:fix		# ESLint with Auto-fix
 ```
 
 ## Development Workflow

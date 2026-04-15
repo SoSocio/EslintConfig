@@ -1,2 +1,2 @@
 #!/bin/bash
-pnpm install
+pnpm install --frozen-lockfile
