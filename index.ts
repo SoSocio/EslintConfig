@@ -231,7 +231,7 @@ export default defineConfig(
 	},
 	{
 		files: tsOnlyFilePatterns,
-		extends: [...typescriptEslintConfigs.recommended],
+		extends: typescriptEslintConfigs.recommended,
 		languageOptions: {
 			parser: typescriptEslintParser,
 			parserOptions: {
@@ -250,6 +250,8 @@ export default defineConfig(
 				noUnusedVarsBaseConfig,
 			],
 			'@typescript-eslint/no-use-before-define': 'off',
+
+			'no-redeclare': 'off',
 			/**
 			 * Reason: no-shadow must be disabled because we're using @typescript-eslint/no-shadow
 			 */

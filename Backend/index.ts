@@ -3,20 +3,11 @@ import baseConfig, {
 	tsOnlyFilePatterns,
 } from '@sosocio/eslint-config';
 import { defineConfig } from 'eslint/config';
-import {
-	configs as typescriptEslintConfigs,
-	parser as typescriptEslintParser,
-} from 'typescript-eslint';
+import { parser as typescriptEslintParser } from 'typescript-eslint';
 
 export default defineConfig(
 	// Shared base config
 	baseConfig,
-	// TS recommended configs
-	{
-		files: jsAndTsFilePatterns,
-		extends: typescriptEslintConfigs.recommended,
-	},
-
 	{
 		files: jsAndTsFilePatterns,
 		languageOptions: {
@@ -60,14 +51,6 @@ export default defineConfig(
 
 			// Naming
 			camelcase: 'off',
-
-			// Floating promises is still safe to keep globally
-			'@typescript-eslint/no-floating-promises': ['error'],
-
-			/**
-			 * Disable the base unused-vars entirely globally; JS will override it.
-			 */
-			'no-unused-vars': 'off',
 		},
 	},
 
@@ -86,27 +69,20 @@ export default defineConfig(
 				},
 			],
 
-			// Shadowing (TS only)
-			'no-shadow': 'off',
-			'@typescript-eslint/no-shadow': ['error'],
+			// Floating promises is still safe to keep globally
+			'@typescript-eslint/no-floating-promises': ['error'],
 
 			// Redeclaration (TS only)
-			'no-redeclare': 'off',
 			'@typescript-eslint/no-redeclare': ['error'],
 
 			// TS-specific rules (moved from base to remove duplication)
 			'@typescript-eslint/no-explicit-any': 'error',
 			'@typescript-eslint/ban-ts-comment': 'off',
-			'@typescript-eslint/no-unused-vars': ['warn'],
 			'@typescript-eslint/explicit-module-boundary-types': 'off',
 
 			// Imports
 			'import/no-import-module-exports': 'off',
 			'import/named': 'off',
-
-			// JS-only rules disabled in TS
-			'no-undef': 'off',
-			'no-unused-vars': 'off',
 		},
 	},
 );
