@@ -24,8 +24,8 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "tsc -p tsconfig.build.json",
 		"typecheck": "tsc",
-		"lint": "pnpm run build && pnpm --filter @sosocio/eslint-config-backend run build && eslint .",
-		"lint:fix": "pnpm run build && pnpm --filter @sosocio/eslint-config-backend run build && eslint . --fix",
+		"lint": "pnpm run build && pnpm --filter @sosocio/eslint-config-backend run build && tsx scripts/eslint.ts",
+		"lint:fix": "pnpm run build && pnpm --filter @sosocio/eslint-config-backend run build && tsx scripts/eslint.ts --fix",
 		"pub": "sh scripts/ci/build_publish.sh --publish",
 		"pack": "sh scripts/ci/build_publish.sh --dry-run",
 		"prepare": "husky"

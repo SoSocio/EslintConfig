@@ -1,4 +1,7 @@
-import baseConfig, { jsAndTsFilePatterns } from '@sosocio/eslint-config';
+import baseConfig, {
+	jsAndTsFilePatterns,
+	tsOnlyFilePatterns,
+} from '@sosocio/eslint-config';
 import { defineConfig } from 'eslint/config';
 import {
 	configs as typescriptEslintConfigs,
@@ -72,7 +75,7 @@ export default defineConfig(
 	 * TypeScript overrides
 	 */
 	{
-		files: ['**/*.ts'],
+		files: tsOnlyFilePatterns,
 		rules: {
 			// Indentation
 			indent: [
@@ -104,29 +107,6 @@ export default defineConfig(
 			// JS-only rules disabled in TS
 			'no-undef': 'off',
 			'no-unused-vars': 'off',
-		},
-	},
-
-	/**
-	 * JavaScript overrides
-	 */
-	{
-		files: ['**/*.js'],
-		rules: {
-			'@typescript-eslint/no-var-requires': 'off',
-			'@typescript-eslint/no-require-imports': 'off',
-			'@typescript-eslint/explicit-function-return-type': 'off',
-
-			// JS-only unused-vars rules
-			'no-unused-vars': [
-				'error',
-				{
-					vars: 'all',
-					args: 'all',
-					argsIgnorePattern: '^_',
-					varsIgnorePattern: '[iI]gnored',
-				},
-			],
 		},
 	},
 );

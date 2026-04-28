@@ -30,11 +30,24 @@ export const tsOnlyFilePatterns = [
 	'**/*.tsx',
 	'**/*.vue',
 ];
+export const jsOnlyFilePatterns = [
+	'**/*.cjs',
+	'**/*.js',
+	'**/*.jsx',
+	'**/*.mjs',
+];
 export const jsonFilePatterns = [
 	'**/*.json',
 	'**/*.json5',
 	'**/*.jsonc',
 ];
+
+const noUnusedVarsBaseConfig = {
+	vars: 'all',
+	args: 'all',
+	argsIgnorePattern: '^_',
+	varsIgnorePattern: '[iI]gnored',
+};
 
 export default defineConfig(
 	{
@@ -232,7 +245,10 @@ export default defineConfig(
 			 */
 			'@typescript-eslint/ban-ts-comment': 'error',
 			'@typescript-eslint/no-shadow': 'error',
-			'@typescript-eslint/no-unused-vars': 'error',
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				noUnusedVarsBaseConfig,
+			],
 			'@typescript-eslint/no-use-before-define': 'off',
 			/**
 			 * Reason: no-shadow must be disabled because we're using @typescript-eslint/no-shadow
@@ -247,6 +263,19 @@ export default defineConfig(
 			 * Reason: no-use-before-define must be disabled because we're using @typescript-eslint/no-use-before-define
 			 */
 			'no-use-before-define': 'off',
+		},
+	},
+	{
+		files: jsOnlyFilePatterns,
+		rules: {
+			'@typescript-eslint/no-var-requires': 'off',
+			'@typescript-eslint/no-require-imports': 'off',
+			'@typescript-eslint/explicit-function-return-type': 'off',
+
+			'no-unused-vars': [
+				'error',
+				noUnusedVarsBaseConfig,
+			],
 		},
 	},
 	{
