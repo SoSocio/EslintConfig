@@ -30,11 +30,24 @@ export const tsOnlyFilePatterns = [
 	'**/*.tsx',
 	'**/*.vue',
 ];
+export const jsOnlyFilePatterns = [
+	'**/*.cjs',
+	'**/*.js',
+	'**/*.jsx',
+	'**/*.mjs',
+];
 export const jsonFilePatterns = [
 	'**/*.json',
 	'**/*.json5',
 	'**/*.jsonc',
 ];
+
+const noUnusedVarsBaseConfig = {
+	vars: 'all',
+	args: 'all',
+	argsIgnorePattern: '^_',
+	varsIgnorePattern: '[iI]gnored',
+};
 
 export default defineConfig(
 	{
@@ -218,7 +231,7 @@ export default defineConfig(
 	},
 	{
 		files: tsOnlyFilePatterns,
-		extends: [...typescriptEslintConfigs.recommended],
+		extends: typescriptEslintConfigs.recommended,
 		languageOptions: {
 			parser: typescriptEslintParser,
 			parserOptions: {
@@ -232,8 +245,13 @@ export default defineConfig(
 			 */
 			'@typescript-eslint/ban-ts-comment': 'error',
 			'@typescript-eslint/no-shadow': 'error',
-			'@typescript-eslint/no-unused-vars': 'error',
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				noUnusedVarsBaseConfig,
+			],
 			'@typescript-eslint/no-use-before-define': 'off',
+
+			'no-redeclare': 'off',
 			/**
 			 * Reason: no-shadow must be disabled because we're using @typescript-eslint/no-shadow
 			 */
@@ -247,6 +265,15 @@ export default defineConfig(
 			 * Reason: no-use-before-define must be disabled because we're using @typescript-eslint/no-use-before-define
 			 */
 			'no-use-before-define': 'off',
+		},
+	},
+	{
+		files: jsOnlyFilePatterns,
+		rules: {
+			'no-unused-vars': [
+				'error',
+				noUnusedVarsBaseConfig,
+			],
 		},
 	},
 	{
